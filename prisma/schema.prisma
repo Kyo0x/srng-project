@@ -1,0 +1,164 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum BotCommandStatus {
+  pending
+  running
+  success
+  failed
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  guildLinks    GuildLink[]
+  botCommands   BotCommand[] @relation("CreatedBy")
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([sessionToken])
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@id([identifier, token])
+}
+
+model GuildLink {
+  id        String   @id @default(cuid())
+  guildId   String   @unique
+  guildName String
+  linkedById String
+  linkedBy  User     @relation(fields: [linkedById], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  settings  BotSettings?
+  commands  BotCommand[]
+  events    BotEvent[]
+}
+
+model BotInstance {
+  id            String   @id @default(cuid())
+  botId         String   @unique
+  displayName   String
+  lastSeenAt    DateTime?
+  online        Boolean  @default(false)
+  heartbeatMs   Int?
+  appVersion    String?
+  hostLabel     String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  heartbeats    BotHeartbeat[]
+  commands      BotCommand[]
+  events        BotEvent[]
+}
+
+model BotHeartbeat {
+  id            String   @id @default(cuid())
+  botInstanceId String
+  botInstance   BotInstance @relation(fields: [botInstanceId], references: [id], onDelete: Cascade)
+  latencyMs     Int?
+  uptimeSeconds Int?
+  memoryMb      Int?
+  guildCount    Int?
+  createdAt     DateTime @default(now())
+
+  @@index([botInstanceId, createdAt])
+}
+
+model BotSettings {
+  id         String   @id @default(cuid())
+  guildLinkId String  @unique
+  guildLink  GuildLink @relation(fields: [guildLinkId], references: [id], onDelete: Cascade)
+  config     Json
+  version    Int      @default(1)
+  updatedAt  DateTime @updatedAt
+}
+
+model BotCommand {
+  id            String   @id @default(cuid())
+  botInstanceId String
+  botInstance   BotInstance @relation(fields: [botInstanceId], references: [id], onDelete: Cascade)
+  guildLinkId   String?
+  guildLink     GuildLink? @relation(fields: [guildLinkId], references: [id], onDelete: SetNull)
+  createdById   String?
+  createdBy     User?    @relation("CreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+  commandType   String
+  payload       Json
+  status        BotCommandStatus @default(pending)
+  result        Json?
+  errorMessage  String?
+  createdAt     DateTime @default(now())
+  startedAt     DateTime?
+  finishedAt    DateTime?
+
+  @@index([botInstanceId, status, createdAt])
+}
+
+model BotEvent {
+  id            String   @id @default(cuid())
+  botInstanceId String?
+  botInstance   BotInstance? @relation(fields: [botInstanceId], references: [id], onDelete: SetNull)
+  guildLinkId   String?
+  guildLink     GuildLink? @relation(fields: [guildLinkId], references: [id], onDelete: SetNull)
+  level         String
+  message       String
+  metadata      Json?
+  createdAt     DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+model BotRequestNonce {
+  id        String   @id @default(cuid())
+  nonce     String   @unique
+  createdAt DateTime @default(now())
+}
