@@ -1,41 +1,45 @@
 import type { Metadata } from "next";
 
-import { getUpcomingScreenings } from "@/lib/cinemaviewing";
-import { ScreeningRow } from "./ui/screening-row";
+import { getMoviesWithScreenings } from "@/lib/cinemaviewing";
+import { MovieCard } from "./ui/movie-card";
 
 export const metadata: Metadata = {
-  title: "Quiet Screenings — srng",
+  title: "Tomme kinosaler — Aurora Kino Fokus",
 };
 
 export default async function CinemaViewingPage() {
-  const screenings = await getUpcomingScreenings();
+  const movies = await getMoviesWithScreenings();
 
   return (
     <main className="min-h-screen bg-slate-950 px-6 py-8 text-slate-100 md:py-12">
-      <section className="mx-auto w-full max-w-3xl">
-        <header className="mb-8 rounded-3xl border border-white/10 bg-slate-900 p-6 shadow-2xl">
-          <p className="text-xs font-medium tracking-[0.2em] text-slate-400 uppercase">
-            Cinema
+      <section className="mx-auto w-full max-w-5xl">
+        <header className="mb-8">
+          <p className="text-xs font-medium tracking-[0.2em] text-slate-500 uppercase">
+            Aurora Kino Fokus
           </p>
           <h1 className="mt-2 text-3xl font-semibold tracking-tight">
-            Quiet Screenings
+            Tomme kinosaler
           </h1>
-          <p className="mt-2 text-sm text-slate-300">
-            Aurora Kino · next 7 days · sorted by fill rate
+          <p className="mt-2 text-sm text-slate-400">
+            Forestillinger de neste 7 dagene, sortert etter fyllingsgrad.
           </p>
         </header>
 
-        {screenings.length === 0 ? (
-          <p className="text-sm text-slate-400">
-            No upcoming screenings found right now.
+        {movies.length === 0 ? (
+          <p className="text-sm text-slate-500">
+            Ingen kommende forestillinger funnet.
           </p>
         ) : (
-          <ul className="space-y-3">
-            {screenings.map((screening) => (
-              <ScreeningRow key={screening.showId} screening={screening} />
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+            {movies.map((movie) => (
+              <MovieCard key={movie.movieId} movie={movie} />
             ))}
-          </ul>
+          </div>
         )}
+
+        <p className="mt-8 text-xs text-slate-600">
+          % = andel solgte billetter ifølge Aurora Kino · oppdateres hvert 5. minutt
+        </p>
       </section>
     </main>
   );

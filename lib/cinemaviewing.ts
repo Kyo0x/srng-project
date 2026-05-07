@@ -18,8 +18,6 @@ type AuroraShowtime = {
 
 export type Screening = {
   showId: string;
-  movieId: number;
-  movieTitle: string;
   date: string;
   time: string;
   startTime: string;
@@ -27,6 +25,14 @@ export type Screening = {
   notes: string[];
   customLists: string[];
   popularity: number;
+};
+
+export type Movie = {
+  movieId: number;
+  title: string;
+  posterUrl: string | null;
+  screenings: Screening[];
+  minPopularity: number;
 };
 
 const AURORA_BASE = "https://fokus.aurorakino.no";
@@ -38,26 +44,32 @@ function deSlug(slug: string): string {
     .join(" ");
 }
 
-function extractMoviesFromHomepage(html: string): Map<number, string> {
-  const movies = new Map<number, string>();
-  const pattern = /href="\/f\/([^/"]+)\/(\d+)"/g;
+type MovieMeta = { title: string; posterUrl: string | null };
+
+function extractMoviesFromHomepage(html: string): Map<number, MovieMeta> {
+  const movies = new Map<number, MovieMeta>();
+  // Captures: slug (1), localId (2), posterUrl (3) — poster is first <img> inside <a>
+  const pattern =
+    /<a[^>]+href="\/f\/([^/"]+)\/(\d+)"[^>]*>[\s\S]*?<img[^>]+src="([^"]+)"[^>]*>/g;
   let match: RegExpExecArray | null;
   while ((match = pattern.exec(html)) !== null) {
     const slug = match[1];
     const id = parseInt(match[2], 10);
-    if (!movies.has(id)) {
-      movies.set(id, deSlug(slug));
-    }
+    const imgSrc = match[3];
+    if (movies.has(id)) continue;
+    // Skip play-button overlay — it should never be first but guard anyway
+    if (imgSrc.includes("play-button")) continue;
+    movies.set(id, { title: deSlug(slug), posterUrl: imgSrc });
   }
   return movies;
 }
 
 function isUpcomingDate(value: string): boolean {
   const today = new Date().toISOString().slice(0, 10);
-  const limitDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+  const limit = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
     .toISOString()
     .slice(0, 10);
-  return value >= today && value <= limitDate;
+  return value >= today && value <= limit;
 }
 
 async function auroraPost<T>(
@@ -82,7 +94,7 @@ async function auroraPost<T>(
   }
 }
 
-export async function getUpcomingScreenings(): Promise<Screening[]> {
+export async function getMoviesWithScreenings(): Promise<Movie[]> {
   const homepageRes = await fetch(AURORA_BASE, {
     next: { revalidate: 300 },
   }).catch(() => null);
@@ -90,38 +102,35 @@ export async function getUpcomingScreenings(): Promise<Screening[]> {
   if (!homepageRes?.ok) return [];
 
   const html = await homepageRes.text();
-  const movies = extractMoviesFromHomepage(html);
-
-  if (movies.size === 0) return [];
+  const movieMeta = extractMoviesFromHomepage(html);
+  if (movieMeta.size === 0) return [];
 
   const seenShowIds = new Set<string>();
-  const results: Screening[] = [];
 
-  const movieEntries = Array.from(movies.entries());
-
-  const perMovie = await Promise.allSettled(
-    movieEntries.map(async ([movieId, movieTitle]) => {
+  const settled = await Promise.allSettled(
+    Array.from(movieMeta.entries()).map(async ([movieId, meta]) => {
       const dates = await auroraPost<AuroraDateItem>("getDates", [
         String(movieId),
       ]);
       const upcoming = dates.filter((d) => isUpcomingDate(d.value));
 
-      const perDate = await Promise.allSettled(
+      const dateResults = await Promise.allSettled(
         upcoming.map((d) =>
-          auroraPost<AuroraShowtime>("getShowtimes", [String(movieId), d.value]),
+          auroraPost<AuroraShowtime>("getShowtimes", [
+            String(movieId),
+            d.value,
+          ]),
         ),
       );
 
-      const showtimes: Screening[] = [];
-      for (const settled of perDate) {
-        if (settled.status !== "fulfilled") continue;
-        for (const raw of settled.value) {
+      const screenings: Screening[] = [];
+      for (const r of dateResults) {
+        if (r.status !== "fulfilled") continue;
+        for (const raw of r.value) {
           if (seenShowIds.has(raw.showId)) continue;
           seenShowIds.add(raw.showId);
-          showtimes.push({
+          screenings.push({
             showId: raw.showId,
-            movieId,
-            movieTitle,
             date: raw.startTime.slice(0, 10),
             time: raw.startTimeTransformed,
             startTime: raw.startTime,
@@ -132,15 +141,35 @@ export async function getUpcomingScreenings(): Promise<Screening[]> {
           });
         }
       }
-      return showtimes;
+
+      // Sort screenings by date/time, not popularity — let the page sort movies
+      screenings.sort(
+        (a, b) =>
+          new Date(a.startTime).getTime() - new Date(b.startTime).getTime(),
+      );
+
+      const minPopularity =
+        screenings.length > 0
+          ? Math.min(...screenings.map((s) => s.popularity))
+          : 100;
+
+      return {
+        movieId,
+        title: meta.title,
+        posterUrl: meta.posterUrl,
+        screenings,
+        minPopularity,
+      } satisfies Movie;
     }),
   );
 
-  for (const settled of perMovie) {
-    if (settled.status !== "fulfilled") continue;
-    results.push(...settled.value);
+  const movies: Movie[] = [];
+  for (const r of settled) {
+    if (r.status !== "fulfilled" || r.value.screenings.length === 0) continue;
+    movies.push(r.value);
   }
 
-  results.sort((a, b) => a.popularity - b.popularity);
-  return results;
+  // Sort movies so the ones with emptiest screenings appear first
+  movies.sort((a, b) => a.minPopularity - b.minPopularity);
+  return movies;
 }
