@@ -1,0 +1,1 @@
+ALTER TABLE bookings ADD COLUMN order_id VARCHAR(20) UNIQUE;

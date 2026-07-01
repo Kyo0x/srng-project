@@ -1,0 +1,16 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/driver-reminder",
+      "schedule": "0 9 * * *"
+    },
+    {
+      "path": "/api/cron/data-retention",
+      "schedule": "0 2 * * *"
+    },
+    {
+      "path": "/api/cron/arrival-reminder",
+      "schedule": "0 8 * * *"
+    }
+  ]
+}

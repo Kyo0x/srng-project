@@ -1,0 +1,1 @@
+ALTER TABLE min_stay_rules ADD COLUMN IF NOT EXISTS recurring BOOLEAN NOT NULL DEFAULT false;

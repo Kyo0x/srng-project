@@ -33,6 +33,39 @@ Open `http://localhost:3000` for the root under-construction page.
 
 To test local subdomains, map test hosts in your local hosts setup and open them in the browser.
 
+## Portfolio Projects
+
+### Vehicle Rental Project Demo
+
+Full-featured campervan rental booking platform located in `/projects/vehicle-rental-project/`.
+
+**Quick Start:**
+```bash
+# Run demo on port 3001
+./start-demo.sh
+
+# Or manually
+cd projects/vehicle-rental-project
+npm install
+npm run dev -- -p 3001
+```
+
+**Demo Pages (No Database Required):**
+
+We've created dummy versions of key pages that work without database connections:
+- Fleet page: Shows vehicle specifications
+- Admin dashboard: Shows booking management interface
+
+```bash
+# Enable demo mode (swaps to dummy data pages)
+./toggle-demo.sh enable
+
+# Disable demo mode (restore original pages)
+./toggle-demo.sh disable
+```
+
+See `projects/vehicle-rental-project/DEMO_PAGES.md` for details.
+
 ## Next steps
 
 - Add auth and access control for dashboard routes

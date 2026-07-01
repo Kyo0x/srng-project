@@ -1,0 +1,2 @@
+ALTER TABLE group_seasonal_promos
+  ADD COLUMN IF NOT EXISTS enabled BOOLEAN NOT NULL DEFAULT false;

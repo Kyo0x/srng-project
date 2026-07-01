@@ -1,0 +1,1 @@
+ALTER TABLE bookings ADD COLUMN IF NOT EXISTS arrival_reminder_sent_at TIMESTAMP WITH TIME ZONE;

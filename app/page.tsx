@@ -1,18 +1,50 @@
+import SubdomainLink from "./components/SubdomainLink";
+
 export default function Home() {
   return (
-    <main className="flex min-h-screen items-center justify-center bg-[radial-gradient(circle_at_20%_20%,#f6f8fc_0%,#eef2f8_35%,#e5ebf5_100%)] px-6">
-      <section className="w-full max-w-xl rounded-3xl border border-slate-900/10 bg-white/80 p-8 text-center shadow-[0_30px_80px_-40px_rgba(15,23,42,0.45)] backdrop-blur md:p-12">
-        <p className="text-xs font-semibold tracking-[0.26em] text-slate-500">
-          SRNG.NO
-        </p>
-        <h1 className="mt-5 text-4xl font-semibold tracking-tight text-slate-900 md:text-5xl">
-          Under Construction
-        </h1>
-        <p className="mx-auto mt-4 max-w-md text-sm leading-7 text-slate-600 md:text-base">
-          The new SRNG platform is being built right now. Public pages will
-          appear here soon.
-        </p>
-      </section>
+    <main className="flex min-h-screen flex-col bg-black font-mono">
+      {/* Header */}
+      <header className="border-b-2 border-dashed border-cyan-500">
+        <div className="mx-auto max-w-7xl px-6 py-4">
+          <div className="flex items-center gap-3">
+            <span className="text-2xl text-cyan-500">[S]</span>
+            <h1 className="text-lg font-bold text-cyan-500 tracking-wider">SRNG.DASHBOARD</h1>
+          </div>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <div className="flex-1 px-6 py-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-8 border-2 border-dotted border-magenta-500 p-4 bg-black">
+            <h2 className="text-2xl font-bold text-magenta-500 mb-2">
+              &gt;&gt; WELCOME.BACK
+            </h2>
+            <p className="text-green-400">
+              :: SELECT_A_SECTION_TO_GET_STARTED ::
+            </p>
+          </div>
+
+          {/* Tiles Grid */}
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <SubdomainLink 
+              subdomain="projects"
+              className="group block border-4 border-double border-cyan-500 p-6 bg-black hover:bg-cyan-950 hover:border-yellow-400 transition-colors"
+            >
+              <div className="mb-4">
+                <span className="text-4xl text-yellow-400">[*]</span>
+              </div>
+              <h3 className="text-xl font-bold text-cyan-400 mb-2">&gt; PROJECTS</h3>
+              <p className="text-sm text-green-400">
+                :: VIEW_ALL_DEMO_PROJECTS ::
+              </p>
+              <div className="mt-4 text-magenta-400">
+                &gt;&gt;&gt;
+              </div>
+            </SubdomainLink>
+          </div>
+        </div>
+      </div>
     </main>
   );
 }
