@@ -47,7 +47,7 @@ export default function BookingPage() {
   const [liveExtras, setLiveExtras] = useState<{ insuranceType: InsuranceType; selectedExtras: SelectedExtras } | null>(null);
   const [pickupTime, setPickupTime] = useState<string>('');
   const [extrasAvailability, setExtrasAvailability] = useState<Record<string, number> | undefined>(undefined);
-  const [holdToken, setHoldToken] = useState<string | null>(null);
+  const [_holdToken, setHoldToken] = useState<string | null>(null);
   const [holdExpiresAt, setHoldExpiresAt] = useState<Date | null>(null);
   const [holdSecondsLeft, setHoldSecondsLeft] = useState<number | null>(null);
   const [holdError, _setHoldError] = useState<string | null>(null);
