@@ -150,7 +150,7 @@ export default function OurCarsPage() {
 
         <CTASection
           title="Ready for your Arctic adventure?"
-          description="Book your campervan rental today"
+          subtitle="Book your campervan rental today"
           buttonText="View Availability"
           buttonHref="/availability"
         />

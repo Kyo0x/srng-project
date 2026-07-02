@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useCallback, useEffect, useRef } from 'react';
+import { useState, useMemo, useCallback, useEffect, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useBookings } from '@/hooks';
@@ -14,7 +14,7 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 
-export default function BookingsPage() {
+function BookingsPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { data: session, status } = useSession();
@@ -1062,5 +1062,13 @@ export default function BookingsPage() {
         />
       </div>
     </main>
+  );
+}
+
+export default function BookingsPageWrapper() {
+  return (
+    <Suspense>
+      <BookingsPage />
+    </Suspense>
   );
 }
