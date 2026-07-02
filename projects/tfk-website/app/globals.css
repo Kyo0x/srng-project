@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Custom prose styling for dark, readable text */
+.prose {
+  color: rgb(31 41 55) !important;
+  font-size: 1.125rem;
+  line-height: 1.75;
+}
+
+.prose p {
+  color: rgb(31 41 55) !important;
+  margin-bottom: 1.25em;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  color: rgb(17 24 39) !important;
+  font-weight: 700;
+  margin-top: 1.5em;
+  margin-bottom: 0.75em;
+}
+
+.prose h1 {
+  font-size: 2.25em;
+}
+
+.prose h2 {
+  font-size: 1.875em;
+}
+
+.prose h3 {
+  font-size: 1.5em;
+}
+
+.prose strong,
+.prose b {
+  color: rgb(17 24 39) !important;
+  font-weight: 700;
+}
+
+.prose ul,
+.prose ol {
+  color: rgb(31 41 55) !important;
+  margin-bottom: 1.25em;
+  padding-left: 1.625em;
+}
+
+.prose li {
+  color: rgb(31 41 55) !important;
+  margin-bottom: 0.5em;
+}
+
+.prose blockquote {
+  color: rgb(31 41 55) !important;
+  font-style: italic;
+  border-left: 4px solid rgb(209 213 219);
+  padding-left: 1em;
+  margin: 1.5em 0;
+}
+
+.prose a {
+  color: rgb(21 128 61) !important;
+  text-decoration: underline;
+}
+
+.prose a:hover {
+  color: rgb(22 163 74) !important;
+}
+
+.prose code {
+  color: rgb(17 24 39) !important;
+  background-color: rgb(243 244 246);
+  padding: 0.2em 0.4em;
+  border-radius: 0.25em;
+  font-size: 0.875em;
+}
