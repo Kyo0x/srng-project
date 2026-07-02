@@ -24,7 +24,6 @@ export async function POST(request: NextRequest) {
       contactEmail = 'test@example.com',
     } = body;
 
-    // Calculate number of days
     const numberOfDays = Math.ceil(
       (new Date(endDate).getTime() - new Date(startDate).getTime()) /
         (1000 * 60 * 60 * 24)
@@ -39,7 +38,6 @@ export async function POST(request: NextRequest) {
       insuranceType
     );
 
-    // Create a payment intent instead of checkout session
     // This allows us to use test webhooks more easily
     const paymentIntent = await stripe.paymentIntents.create({
       amount: toStripeAmount(totalPrice),

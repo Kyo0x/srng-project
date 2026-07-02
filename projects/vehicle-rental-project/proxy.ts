@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 
 export function proxy() {
-  // Add security headers
   const response = NextResponse.next();
 
   // Prevent clickjacking

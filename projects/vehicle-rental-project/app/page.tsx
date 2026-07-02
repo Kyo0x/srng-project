@@ -29,7 +29,6 @@ export default function HomePage() {
       setStartDate(start);
       setEndDate(end);
     } else {
-      // Set default dates: today and 2 days ahead
       const todayDate = new Date();
       const twoDaysLater = new Date(todayDate);
       twoDaysLater.setDate(todayDate.getDate() + 2);

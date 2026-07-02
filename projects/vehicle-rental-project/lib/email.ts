@@ -159,7 +159,6 @@ const formatSelectedExtras = (selectedExtras: Record<string, number>): string[] 
   return lines;
 };
 
-
 interface BookingEmailData {
   customerName: string;
   customerEmail: string;
@@ -817,7 +816,6 @@ export interface ModificationEmailData {
   bookingId: number;
   uploadToken?: string;
   orderId?: string;
-  // Extras modification fields
   oldInsuranceType?: string;
   newInsuranceType?: string;
   oldSelectedExtras?: Record<string, number>;

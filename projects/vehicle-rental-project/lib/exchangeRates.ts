@@ -9,12 +9,10 @@ interface CachedRates {
 let memoryCache: CachedRates | null = null;
 
 export async function getExchangeRates(): Promise<{ USD: number; EUR: number }> {
-  // Check memory cache first
   if (memoryCache && Date.now() - memoryCache.timestamp < CACHE_DURATION) {
     return memoryCache.rates;
   }
 
-  // Check localStorage
   if (typeof window !== 'undefined') {
     try {
       const cached = localStorage.getItem(CACHE_KEY);
@@ -28,7 +26,6 @@ export async function getExchangeRates(): Promise<{ USD: number; EUR: number }> 
     } catch {}
   }
 
-  // Fetch fresh rates
   try {
     const res = await fetch('https://api.frankfurter.app/latest?from=NOK&to=USD,EUR');
     if (!res.ok) throw new Error('Failed to fetch rates');

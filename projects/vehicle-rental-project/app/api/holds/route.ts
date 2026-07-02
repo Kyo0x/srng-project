@@ -29,7 +29,6 @@ export async function POST(request: NextRequest) {
     // Clean up expired holds first
     await query(`DELETE FROM booking_holds WHERE expires_at < NOW()`);
 
-    // Check for active holds by other users on these dates
     const existingHold = await query(
       `SELECT id FROM booking_holds
        WHERE vehicle_id = $1
@@ -45,7 +44,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check for confirmed bookings
     const existingBooking = await query(
       `SELECT id FROM bookings
        WHERE vehicle_id = $1

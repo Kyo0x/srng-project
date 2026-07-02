@@ -62,7 +62,6 @@ export const VehicleCard = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Handle both old image_url and new image_urls format for backwards compatibility
   const images = vehicle.image_urls?.length
     ? vehicle.image_urls
     : (vehicle as any).image_url

@@ -29,25 +29,21 @@ export async function POST(request: NextRequest) {
       selected_extras = {},
     } = body;
 
-    // Validate required fields
     if (!vehicle_id || !start_date || !end_date || !first_name || !last_name || !email || total_price === undefined || total_price === null) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    // Validate dates
     const startDateObj = new Date(start_date);
     const endDateObj = new Date(end_date);
     if (endDateObj <= startDateObj) {
       return NextResponse.json({ error: 'End date must be after start date' }, { status: 400 });
     }
 
-    // Check if vehicle exists
     const vehicleResult = await query('SELECT id FROM vehicles WHERE id = $1', [vehicle_id]);
     if (vehicleResult.rows.length === 0) {
       return NextResponse.json({ error: 'Vehicle not found' }, { status: 404 });
     }
 
-    // Check for overlapping bookings
     const overlapResult = await query(
       `SELECT id FROM bookings 
        WHERE vehicle_id = $1 
@@ -63,7 +59,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create the booking
     const result = await query(
       `INSERT INTO bookings (
         vehicle_id,

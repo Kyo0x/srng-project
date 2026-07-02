@@ -4,7 +4,6 @@ import { NextResponse } from 'next/server';
 export const revalidate = 0;
 
 export async function GET() {
-  // Return empty availability array (all dates available for demo)
   // In a real scenario, this would show booked/blocked dates
   const demoAvailability: unknown[] = [
     // Optionally add some demo bookings to show the calendar working

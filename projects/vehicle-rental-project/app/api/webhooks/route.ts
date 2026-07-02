@@ -12,7 +12,6 @@ async function processOverlapRefund(
   metadata: Record<string, string>
 ): Promise<{ success: boolean; refundId?: string; error?: string }> {
   try {
-    // Get payment intent from the session
     if (!session.payment_intent) {
       return { success: false, error: 'No payment intent found' };
     }
@@ -21,20 +20,17 @@ async function processOverlapRefund(
       ? session.payment_intent
       : session.payment_intent.id;
 
-    // Process full refund
     const refund = await stripe.refunds.create({
       payment_intent: paymentIntentId,
       reason: 'requested_by_customer',
     });
 
-    // Send notification emails
     const customerEmail = session.customer_details?.email || metadata.contactEmail;
     const customerName = session.customer_details?.name || 'Valued Customer';
     const vehicleName = metadata.vehicleName || 'RV';
     const refundAmount = fromStripeAmount(session.amount_total || 0);
 
     if (customerEmail) {
-      // Customer email
       await sendEmail(
         customerEmail,
         'NorthVenture <hello@northventure-demo.com>',
@@ -81,7 +77,6 @@ async function processOverlapRefund(
       );
     }
 
-    // Admin notification
     await sendEmail(
       ADMIN_EMAILS,
       'NorthVenture <hello@northventure-demo.com>',
@@ -167,7 +162,6 @@ export async function POST(request: NextRequest) {
         });
 
         if (session.payment_status === 'paid' && metadata?.type === 'booking_modification') {
-          // Handle booking modification payment
           const { bookingId, uploadToken, newTotalPrice, modificationType } = metadata;
 
           // Idempotency: skip if already modified by this session
@@ -202,7 +196,6 @@ export async function POST(request: NextRequest) {
               [JSON.stringify(parsedExtras), newInsuranceType, parseFloat(newTotalPrice), bookingId, session.id]
             );
 
-            // Fetch full booking for email
             const fullBookingResult = await query(
               `SELECT b.*, v.name as vehicle_name FROM bookings b JOIN vehicles v ON b.vehicle_id = v.id WHERE b.id = $1`,
               [bookingId]
@@ -253,7 +246,6 @@ export async function POST(request: NextRequest) {
               [newStartDate, newEndDate, parseFloat(newTotalPrice), bookingId, session.id]
             );
 
-            // Fetch full booking for email
             const fullBookingResult = await query(
               `SELECT b.*, v.name as vehicle_name FROM bookings b JOIN vehicles v ON b.vehicle_id = v.id WHERE b.id = $1`,
               [bookingId]
@@ -300,7 +292,6 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ received: true, status: 'already_processed' });
           }
 
-          // Check for overlapping bookings before inserting
           const overlapResult = await query(
             `SELECT id FROM bookings
              WHERE vehicle_id = $1
@@ -313,7 +304,6 @@ export async function POST(request: NextRequest) {
           if (overlapResult.rows.length > 0) {
             console.error('Overlapping booking detected for vehicle:', metadata.vehicleId);
 
-            // Process automatic full refund
             const refundResult = await processOverlapRefund(stripe, session, metadata);
 
             if (refundResult.success) {
@@ -332,7 +322,6 @@ export async function POST(request: NextRequest) {
             );
           }
 
-          // Check if vehicle was paused after checkout was created
           const pausedResult = await query(
             'SELECT is_paused FROM vehicles WHERE id = $1',
             [metadata.vehicleId]
@@ -358,7 +347,6 @@ export async function POST(request: NextRequest) {
             );
           }
 
-          // Parse selectedExtras from metadata (stored as JSON string)
           let selectedExtras = {};
           try {
             selectedExtras = metadata.selectedExtras ? JSON.parse(metadata.selectedExtras) : {};
@@ -422,7 +410,6 @@ export async function POST(request: NextRequest) {
 
           console.log('Booking created successfully for session:', session.id);
 
-          // Release the hold now that booking is confirmed
           if (metadata.holdToken) {
             await query(
               `DELETE FROM booking_holds WHERE hold_token = $1`,
@@ -430,7 +417,6 @@ export async function POST(request: NextRequest) {
             ).catch((e: unknown) => console.warn('Could not delete hold after booking:', e));
           }
 
-          // Send email notifications
           const emailData = {
             customerName: session.customer_details?.name || 'Valued Customer',
             customerEmail: session.customer_details?.email || metadata.contactEmail || '',
@@ -448,13 +434,11 @@ export async function POST(request: NextRequest) {
             orderId,
           };
 
-          // Send customer confirmation email
           const customerEmail = await sendBookingConfirmation(emailData);
           if (!customerEmail.success) {
             console.error('Failed to send customer email:', customerEmail.error);
           }
 
-          // Send admin notification email
           const adminEmail = await sendAdminNotification(emailData);
           if (!adminEmail.success) {
             console.error('Failed to send admin email:', adminEmail.error);
@@ -480,7 +464,6 @@ export async function POST(request: NextRequest) {
           );
         }
 
-        // Release the hold if Stripe session expired without payment
         if (metadata.holdToken) {
           await query(
             `DELETE FROM booking_holds WHERE hold_token = $1`,

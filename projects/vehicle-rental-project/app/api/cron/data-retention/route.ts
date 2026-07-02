@@ -37,7 +37,6 @@ export async function GET(request: NextRequest) {
          )`
       );
 
-      // Delete physical licence photo files (best-effort)
       for (const photoUrl of expiredPhotoFiles) {
         try {
           const filename = photoUrl.replace('/api/licenses/', '').replace('/uploads/licenses/', '');

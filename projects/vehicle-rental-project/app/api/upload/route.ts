@@ -19,7 +19,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Validate token exists and booking has not yet had driver details submitted
     const result = await query(
       `SELECT id FROM bookings WHERE upload_token = $1 AND status IN ('pending_details', 'completed')
        AND NOT EXISTS (SELECT 1 FROM booking_drivers WHERE booking_id = bookings.id)`,

@@ -184,7 +184,6 @@ function BookingsPage() {
   }, [expandedDrivers]);
 
   const handleGenerateContract = useCallback(async (booking: any) => {
-    // Fetch driver details if not loaded
     let drivers = expandedDrivers[booking.id];
     if (!drivers) {
       setLoadingDrivers(booking.id);
@@ -296,7 +295,6 @@ function BookingsPage() {
   }, [emailSubject, emailMessage]);
 
   const handlePrint = useCallback(async (booking: any) => {
-    // Fetch driver details if not loaded
     let drivers = expandedDrivers[booking.id];
     if (!drivers) {
       setLoadingDrivers(booking.id);

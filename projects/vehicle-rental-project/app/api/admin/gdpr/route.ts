@@ -73,7 +73,6 @@ export async function DELETE(request: NextRequest) {
   );
 
   await transaction(async (client) => {
-    // Delete driver details rows
     await client.query(
       `DELETE FROM booking_drivers
        WHERE booking_id IN (SELECT id FROM bookings WHERE LOWER(email) = $1)`,
@@ -92,7 +91,6 @@ export async function DELETE(request: NextRequest) {
     );
   });
 
-  // Delete physical license photo files (best-effort — don't fail if already gone)
   let filesDeleted = 0;
   for (const photoUrl of photoFiles) {
     try {

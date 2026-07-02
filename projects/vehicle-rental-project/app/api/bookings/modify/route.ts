@@ -102,7 +102,6 @@ const rateLimitedHandler = withRateLimit(async function (request: Request) {
       }
     }
 
-    // Fetch booking and verify token
     const bookingResult = await query(
       `SELECT b.*, v.name as vehicle_name, v.price_per_day
        FROM bookings b
@@ -260,7 +259,6 @@ const rateLimitedHandler = withRateLimit(async function (request: Request) {
     }
 
     // ── Dates modification path ─────────────────────────────────────────────
-    // Check availability for new dates (exclude this booking)
     const overlapResult = await query(
       `SELECT id FROM bookings
        WHERE vehicle_id = $1
@@ -350,7 +348,6 @@ const rateLimitedHandler = withRateLimit(async function (request: Request) {
       }
     }
 
-    // Update the booking
     const effectiveNewTotal = oldTotalPrice - refundAmount;
     await query(
       `UPDATE bookings
@@ -363,7 +360,6 @@ const rateLimitedHandler = withRateLimit(async function (request: Request) {
       [newStartDate, newEndDate, effectiveNewTotal, bookingId]
     );
 
-    // Send confirmation emails (non-blocking)
     const emailData = {
       customerName: `${booking.first_name} ${booking.last_name}`,
       customerEmail: booking.email,

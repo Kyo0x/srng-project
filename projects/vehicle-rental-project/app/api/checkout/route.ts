@@ -33,7 +33,6 @@ export async function POST(request: NextRequest) {
       pickupTime,
     } = validation.data;
 
-    // Reject checkout for paused vehicles
     const vehicleCheck = await query('SELECT is_paused FROM vehicles WHERE id = $1', [vehicleId]);
     if (vehicleCheck.rows.length === 0) {
       return NextResponse.json({ error: 'Vehicle not found' }, { status: 404 });
@@ -45,7 +44,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check for overlapping bookings before creating checkout session
     // This prevents users from paying for dates that are already booked
     let overlappingBookings;
     try {
@@ -66,7 +64,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check for maintenance/blackout blocks
     let blackoutConflict;
     try {
       const blackoutResult = await query(
@@ -225,7 +222,6 @@ export async function POST(request: NextRequest) {
         quantity: 1,
       });
 
-    // Add selected extras as line items
     if (selectedExtras && Object.keys(selectedExtras).length > 0) {
       const numberOfDays = Math.ceil(
         (new Date(endDate).getTime() - new Date(startDate).getTime()) /

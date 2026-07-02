@@ -39,7 +39,6 @@ const rateLimitedHandler = withRateLimit(async function(request: Request) {
 
     const booking = result.rows[0];
 
-    // Check if booking is already cancelled
     if (booking.status === BOOKING_STATUS.CANCELLED) {
       return NextResponse.json(
         { error: 'This booking has already been cancelled.', code: 'ALREADY_CANCELLED' },
@@ -47,7 +46,6 @@ const rateLimitedHandler = withRateLimit(async function(request: Request) {
       );
     }
 
-    // Check if booking start date has passed
     const startDate = new Date(booking.start_date);
     const now = new Date();
     startDate.setHours(0, 0, 0, 0);
@@ -71,7 +69,6 @@ const rateLimitedHandler = withRateLimit(async function(request: Request) {
     // For cancel action, check start date hasn't passed (already checked above)
     // For modify action, additionally allow pending_details bookings
 
-    // Calculate refund information (includes 24h free cancellation check)
     const totalPrice = parseFloat(booking.total_price);
     const daysUntilStart = getDaysUntilStart(booking.start_date);
     const withinFreeCancellation = isWithinFreeCancellationWindow(booking.created_at);

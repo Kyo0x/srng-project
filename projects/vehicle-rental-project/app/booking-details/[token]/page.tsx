@@ -87,7 +87,6 @@ export default function BookingDetailsPage() {
           setSuccess(true);
         }
 
-        // Check if extra_driver is selected (either from booking field or selected_extras)
         const hasExtraDriver = data.extra_driver ||
           (data.selected_extras && Object.keys(data.selected_extras).some(
             (key) => key === 'extra_driver' && data.selected_extras[key] > 0

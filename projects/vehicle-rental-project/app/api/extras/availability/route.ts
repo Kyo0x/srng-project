@@ -46,7 +46,6 @@ export async function GET(req: NextRequest) {
       }
     }
 
-    // Return how many are available (globalMax - booked)
     const availability: Record<string, number> = {};
     for (const extra of limitedExtras) {
       availability[extra.id] = Math.max(0, (extra.globalMax ?? 0) - (booked[extra.id] ?? 0));

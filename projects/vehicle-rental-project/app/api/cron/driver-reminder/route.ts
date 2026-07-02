@@ -12,7 +12,6 @@ export async function GET(request: Request) {
   }
 
   try {
-    // Find bookings that:
     // 1. Have status 'pending_details'
     // 2. Haven't had a reminder sent yet (reminder_sent_at is null)
     // 3. Start date is in the future (no point reminding for past bookings)
@@ -41,7 +40,6 @@ export async function GET(request: Request) {
 
     for (const booking of bookings) {
       try {
-        // Send reminder email
         await sendDriverDetailsReminder({
           customerName: `${booking.first_name} ${booking.last_name}`,
           customerEmail: booking.email,

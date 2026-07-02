@@ -53,8 +53,8 @@ export default function ProjectsPage() {
             </a>
 
             {/* Hunting Dog Website */}
-            <a 
-              href="#"
+            <a
+              href="/tfk-website"
               className="group block border-4 border-double border-cyan-500 p-6 bg-black hover:bg-cyan-950 hover:border-yellow-400 transition-colors"
             >
               <div className="mb-4">
@@ -62,11 +62,11 @@ export default function ProjectsPage() {
               </div>
               <h3 className="text-xl font-bold text-cyan-400 mb-2">&gt; HUNTING.DOG.PORTAL</h3>
               <p className="text-sm text-green-400 mb-3">
-                :: WEBSITE_FOR_DOG_BREEDERS_AND_ENTHUSIASTS ::
+                :: EVENTS_NEWS_&_HUNT_TRIALS_FOR_A_DOG_CLUB ::
               </p>
               <div className="flex gap-2 text-xs">
-                <span className="border border-dotted border-magenta-400 px-2 py-1 text-magenta-400">REACT</span>
-                <span className="border border-dotted border-magenta-400 px-2 py-1 text-magenta-400">TAILWIND</span>
+                <span className="border border-dotted border-magenta-400 px-2 py-1 text-magenta-400">NEXT.JS</span>
+                <span className="border border-dotted border-magenta-400 px-2 py-1 text-magenta-400">SANITY</span>
               </div>
               <div className="mt-4 text-yellow-400">
                 &gt;&gt;&gt;

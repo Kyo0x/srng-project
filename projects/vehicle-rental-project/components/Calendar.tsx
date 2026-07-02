@@ -200,7 +200,6 @@ export const Calendar = ({
       );
       if (isBooked) return true;
 
-      // Find the nearest future blockage start for this vehicle
       let nextStart: string | null = null;
       for (const b of bookings) {
         if (

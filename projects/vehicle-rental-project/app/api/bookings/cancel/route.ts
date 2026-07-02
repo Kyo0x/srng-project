@@ -41,7 +41,6 @@ const rateLimitedHandler = withRateLimit(async function(request: Request) {
       }
     }
 
-    // Fetch the booking — for customers, verify the upload_token matches
     const bookingResult = await query(
       `SELECT b.*, v.name as vehicle_name
        FROM bookings b
@@ -57,12 +56,10 @@ const rateLimitedHandler = withRateLimit(async function(request: Request) {
 
     const booking = bookingResult.rows[0];
 
-    // Check if already cancelled
     if (booking.status === BOOKING_STATUS.CANCELLED) {
       return NextResponse.json({ error: 'This booking is already cancelled' }, { status: 400 });
     }
 
-    // Check if booking has started (only block customer cancellations, not admin)
     const startDate = new Date(booking.start_date);
     const now = new Date();
     startDate.setHours(0, 0, 0, 0);
@@ -75,7 +72,6 @@ const rateLimitedHandler = withRateLimit(async function(request: Request) {
       );
     }
 
-    // Calculate refund
     const totalPrice = parseFloat(booking.total_price);
     const daysUntilStart = getDaysUntilStart(booking.start_date);
 
@@ -92,7 +88,6 @@ const rateLimitedHandler = withRateLimit(async function(request: Request) {
       refundAmount = calculateRefundAmount(totalPrice, booking.start_date, booking.created_at);
     }
 
-    // Process Stripe refund if applicable
     let stripeRefundId: string | null = null;
 
     const isAdminBooking = booking.stripe_session_id?.startsWith('admin_');
@@ -166,7 +161,6 @@ const rateLimitedHandler = withRateLimit(async function(request: Request) {
       }
     }
 
-    // Update booking status to cancelled
     const cancelledAt = new Date().toISOString();
     await query(
       `UPDATE bookings
@@ -207,7 +201,6 @@ const rateLimitedHandler = withRateLimit(async function(request: Request) {
       uploadToken: booking.upload_token ?? undefined,
     };
 
-    // Send email notifications (don't fail the request if emails fail)
     try {
       await Promise.all([
         sendCancellationConfirmation(emailData),

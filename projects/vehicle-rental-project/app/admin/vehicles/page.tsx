@@ -228,7 +228,6 @@ export default function VehiclesPage() {
   };
 
   const handleEdit = (vehicle: Vehicle) => {
-    // Handle both old image_url and new image_urls format
     const imageUrls = vehicle.image_urls?.length
       ? vehicle.image_urls
       : (vehicle as any).image_url
@@ -292,7 +291,6 @@ export default function VehiclesPage() {
       const uploadData = await uploadRes.json();
       if (!uploadRes.ok) throw new Error(uploadData.error || 'Upload failed');
 
-      // Save the URL back to the vehicle — must pass all required fields
       const imageUrls = vehicle.image_urls?.length ? vehicle.image_urls : [];
       await api('/api/vehicles', {
         method: 'PUT',

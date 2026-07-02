@@ -25,7 +25,6 @@ function AvailabilityContent() {
   const [minDays, setMinDays] = useState<number>(VALIDATION.MIN_RENTAL_DAYS);
   const [minDaysLabel, setMinDaysLabel] = useState<string | null>(null);
 
-  // Release a hold if the user cancelled out of Stripe
   useEffect(() => {
     const releaseHold = searchParams.get('releaseHold');
     if (!releaseHold) return;
@@ -142,7 +141,6 @@ function AvailabilityContent() {
 
   const isSearchReady = startDate && endDate && numberOfDays >= minDays;
   const noResults = !loading && vehicles.length === 0 && allVehicles.length > 0 && isSearchReady;
-
 
   return (
     <div className="min-h-screen flex flex-col bg-white">

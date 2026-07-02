@@ -81,7 +81,6 @@ export default function ImagesPage() {
 
     for (const file of fileList) {
       try {
-        // Build a unique pathname so files never collide
         const ext = file.name.split('.').pop() ?? 'bin';
         const base = file.name.replace(/\.[^.]+$/, '').replace(/[^a-z0-9]/gi, '-').toLowerCase();
         const suffix = Math.random().toString(36).slice(2, 8);

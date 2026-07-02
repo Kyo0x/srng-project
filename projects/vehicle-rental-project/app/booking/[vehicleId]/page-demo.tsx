@@ -100,7 +100,6 @@ export default function BookingPage() {
       .catch(() => {}); // non-critical — gracefully degrade
   }, [startDate, endDate]);
 
-  // Release hold on unmount if one was created
   useEffect(() => {
     return () => {
       if (holdTokenRef.current) {
@@ -165,7 +164,6 @@ export default function BookingPage() {
     return basePrice + extrasCost.totalCost + insuranceCost;
   }, [basePrice, extrasData, numberOfDays]);
 
-  // Get selected extras summary for display
   const selectedExtrasSummary = useMemo(() => {
     if (!extrasData?.selectedExtras) return [];
 

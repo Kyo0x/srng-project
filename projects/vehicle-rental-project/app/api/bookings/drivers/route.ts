@@ -33,7 +33,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // Check if drivers already exist for this booking
     const existingDrivers = await query(
       'SELECT id FROM booking_drivers WHERE booking_id = $1',
       [booking.id]
@@ -46,7 +45,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // Insert all drivers and update status atomically
     await transaction(async (client) => {
       for (const driver of drivers) {
         await client.query(

@@ -17,7 +17,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     Resend({
       from: "noreply@arctictrail.no",
       async sendVerificationRequest({ identifier: email, url }) {
-        // Only send email if it's an admin email
         if (!await isAuthorizedAdmin(email)) {
           throw new Error("Unauthorized email address");
         }
@@ -51,7 +50,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return session;
     },
     async redirect({ url, baseUrl }) {
-      // After login, always redirect to /admin
       if (url.startsWith("/")) return `${baseUrl}${url}`;
       else if (new URL(url).origin === baseUrl) return url;
       return `${baseUrl}/admin`;
