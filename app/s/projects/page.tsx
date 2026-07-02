@@ -41,7 +41,7 @@ export default function ProjectsPage() {
               </div>
               <h3 className="text-xl font-bold text-cyan-400 mb-2">&gt; VEHICLE.RENTAL</h3>
               <p className="text-sm text-green-400 mb-3">
-                :: CAMPERVAN_RENTAL_BOOKING_PLATFORM ::
+                :: CAMPERVAN_RENTAL_PLATFORM ::
               </p>
               <div className="flex gap-2 text-xs">
                 <span className="border border-dotted border-magenta-400 px-2 py-1 text-magenta-400">NEXT.JS</span>
@@ -62,7 +62,7 @@ export default function ProjectsPage() {
               </div>
               <h3 className="text-xl font-bold text-cyan-400 mb-2">&gt; HUNTING.DOG.PORTAL</h3>
               <p className="text-sm text-green-400 mb-3">
-                :: EVENTS_NEWS_&_HUNT_TRIALS_FOR_A_DOG_CLUB ::
+                :: HUNT_TRIALS_&_CLUB_NEWS ::
               </p>
               <div className="flex gap-2 text-xs">
                 <span className="border border-dotted border-magenta-400 px-2 py-1 text-magenta-400">NEXT.JS</span>
@@ -83,7 +83,7 @@ export default function ProjectsPage() {
               </div>
               <h3 className="text-xl font-bold text-cyan-400 mb-2">&gt; IT.SOLUTIONS</h3>
               <p className="text-sm text-green-400 mb-3">
-                :: IT_SERVICES_AND_TECHNOLOGY_CONSULTING ::
+                :: IT_SERVICES_&_CONSULTING ::
               </p>
               <div className="flex gap-2 text-xs">
                 <span className="border border-dotted border-magenta-400 px-2 py-1 text-magenta-400">SVELTEKIT</span>
