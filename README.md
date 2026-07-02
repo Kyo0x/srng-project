@@ -84,6 +84,23 @@ npm run dev -- -p 3002
 
 Showcase page: `projects.srng.no/tfk-website` (linked from the "HUNTING.DOG.PORTAL" card). Live demo target: `hunting-dog-portal.srng.no` — see `projects/tfk-website/DEPLOYMENT.md` for deploying it there.
 
+### IT-Hjelperen Demo
+
+IT support & PC-building service marketing site (services, pricing, about, contact), built with SvelteKit + TailwindCSS, located in `/projects/it-hjelperen/`.
+
+**Quick Start:**
+```bash
+# Run demo on port 3003
+./start-it-hjelperen-demo.sh
+
+# Or manually
+cd projects/it-hjelperen
+npm install
+npm run dev -- --port 3003
+```
+
+Showcase page: `projects.srng.no/it-hjelperen` (linked from the "IT.SOLUTIONS" card). Live demo target: `it-website.srng.no` — see `projects/it-hjelperen/DEPLOYMENT.md` for deploying it there.
+
 ## Next steps
 
 - Add auth and access control for dashboard routes

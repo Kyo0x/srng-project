@@ -19,7 +19,6 @@ Anonymized campervan rental booking platform
   - Customer driver license management
   - Automated reminders
   
-See `vehicle-rental-project/ANONYMIZATION_SUMMARY.md` for anonymization details.
 
 ### tfk-website/
 Anonymized hunting dog club website ("Hunting Dog Portal")
@@ -34,7 +33,18 @@ Anonymized hunting dog club website ("Hunting Dog Portal")
   - Rules and resource document library
   - Full content management via Sanity Studio (`/studio`)
 
-See `tfk-website/DEPLOYMENT.md` for deploying the live demo.
+
+### it-hjelperen/
+Anonymized IT support & PC-building service website ("IT-Hjelperen")
+
+- **Purpose**: Portfolio demonstration of a local service-business marketing site
+- **Demo URL**: it-hjelperen.srng.no (when deployed)
+- **Tech Stack**: SvelteKit, TypeScript, TailwindCSS
+- **Features**:
+  - Service, pricing and about pages with real-time availability widget
+  - Contact form (Formspree-ready) with click-to-call/email
+  - Local business SEO (JSON-LD schema, sitemap, OG tags)
+  - Dark mode, fully static site generation
 
 ---
 

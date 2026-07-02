@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export default function VehicleRentalProjectPage() {
@@ -97,15 +98,17 @@ export default function VehicleRentalProjectPage() {
           <div className="border-4 border-double border-cyan-500 p-6 bg-black mb-8">
             <h3 className="text-xl font-bold text-cyan-400 mb-4">&gt; PROJECT.GALLERY</h3>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              <div className="aspect-video border-2 border-dotted border-yellow-400 flex items-center justify-center">
-                <span className="text-yellow-400">[IMG_001]</span>
-              </div>
-              <div className="aspect-video border-2 border-dotted border-yellow-400 flex items-center justify-center">
-                <span className="text-yellow-400">[IMG_002]</span>
-              </div>
-              <div className="aspect-video border-2 border-dotted border-yellow-400 flex items-center justify-center">
-                <span className="text-yellow-400">[IMG_003]</span>
-              </div>
+              {[1, 2, 3].map((n) => (
+                <div key={n} className="relative aspect-video border-2 border-dotted border-yellow-400 overflow-hidden">
+                  <Image
+                    src={`/screenshots/vehicle-rental-project/screenshot-${n}.png`}
+                    alt={`Vehicle rental platform screenshot ${n}`}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover"
+                  />
+                </div>
+              ))}
             </div>
           </div>
 

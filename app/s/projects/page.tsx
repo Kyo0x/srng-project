@@ -74,8 +74,8 @@ export default function ProjectsPage() {
             </a>
 
             {/* IT Website */}
-            <a 
-              href="#"
+            <a
+              href="/it-hjelperen"
               className="group block border-4 border-double border-cyan-500 p-6 bg-black hover:bg-cyan-950 hover:border-yellow-400 transition-colors"
             >
               <div className="mb-4">
@@ -86,8 +86,8 @@ export default function ProjectsPage() {
                 :: IT_SERVICES_AND_TECHNOLOGY_CONSULTING ::
               </p>
               <div className="flex gap-2 text-xs">
-                <span className="border border-dotted border-magenta-400 px-2 py-1 text-magenta-400">NEXT.JS</span>
-                <span className="border border-dotted border-magenta-400 px-2 py-1 text-magenta-400">CMS</span>
+                <span className="border border-dotted border-magenta-400 px-2 py-1 text-magenta-400">SVELTEKIT</span>
+                <span className="border border-dotted border-magenta-400 px-2 py-1 text-magenta-400">TAILWIND</span>
               </div>
               <div className="mt-4 text-yellow-400">
                 &gt;&gt;&gt;

@@ -3,16 +3,16 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-export default function TfkWebsiteProjectPage() {
-  const [demoUrl, setDemoUrl] = useState("https://hunting-dog-portal.srng.no");
+export default function ItHjelperenProjectPage() {
+  const [demoUrl, setDemoUrl] = useState("https://it-website.srng.no");
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       const isLocalhost = window.location.hostname === "localhost" || window.location.hostname.endsWith(".localhost");
 
       if (isLocalhost) {
-        // For local development, point to localhost:3002
-        setDemoUrl("http://localhost:3002");
+        // For local development, point to localhost:3003
+        setDemoUrl("http://localhost:3003");
       }
     }
   }, []);
@@ -29,7 +29,7 @@ export default function TfkWebsiteProjectPage() {
             >
               [←]
             </a>
-            <h1 className="text-lg font-bold text-cyan-500 tracking-wider">HUNTING.DOG.PORTAL</h1>
+            <h1 className="text-lg font-bold text-cyan-500 tracking-wider">IT.SOLUTIONS</h1>
           </div>
         </div>
       </header>
@@ -39,10 +39,10 @@ export default function TfkWebsiteProjectPage() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-8 border-2 border-dotted border-magenta-500 p-4 bg-black">
             <h2 className="text-2xl font-bold text-magenta-500 mb-2">
-              &gt;&gt; HUNTING.CLUB.CMS.PLATFORM
+              &gt;&gt; IT.SUPPORT.&.PC.BUILDING.SERVICE
             </h2>
             <p className="text-green-400">
-              :: EVENTS_NEWS_&_HUNT_TRIALS_FOR_DOG_CLUB_MEMBERS ::
+              :: MARKETING_SITE_FOR_A_LOCAL_IT_SUPPORT_BUSINESS ::
             </p>
           </div>
 
@@ -52,12 +52,12 @@ export default function TfkWebsiteProjectPage() {
             <div className="border-4 border-double border-cyan-500 p-6 bg-black">
               <h3 className="text-xl font-bold text-cyan-400 mb-4">&gt; FEATURES</h3>
               <ul className="space-y-2 text-sm text-green-400">
-                <li>:: EVENTS_CALENDAR_WITH_HUNT_TRIAL_CATEGORIES</li>
-                <li>:: NEWS_&_ACTIVITY_FEED</li>
-                <li>:: CLUBHOUSE_RENTAL_INFO_&_CONTRACT_PDF</li>
-                <li>:: RULES_&_RESOURCE_DOCUMENT_LIBRARY</li>
-                <li>:: FULL_CONTENT_MANAGEMENT_VIA_SANITY_STUDIO</li>
-                <li>:: ON-DEMAND_REVALIDATION_FOR_INSTANT_UPDATES</li>
+                <li>:: PC_SERVICE_&_REPAIR_INFO</li>
+                <li>:: SETUP_&_INSTALLATION_SERVICES</li>
+                <li>:: HOME_NETWORK_&_WIFI_OPTIMIZATION</li>
+                <li>:: DATA_SECURITY_&_BACKUP_PACKAGES</li>
+                <li>:: PRICING_&_CONTACT_PAGES</li>
+                <li>:: SERVICE_BOOKING_CONTACT_FORM</li>
               </ul>
             </div>
 
@@ -67,19 +67,11 @@ export default function TfkWebsiteProjectPage() {
               <div className="space-y-3 text-sm">
                 <div>
                   <span className="text-magenta-400">FRONTEND:</span>
-                  <span className="text-green-400"> NEXT.JS_+_REACT_+_TAILWIND</span>
-                </div>
-                <div>
-                  <span className="text-magenta-400">CMS:</span>
-                  <span className="text-green-400"> SANITY.IO</span>
+                  <span className="text-green-400"> SVELTEKIT_+_TAILWIND</span>
                 </div>
                 <div>
                   <span className="text-magenta-400">LANGUAGE:</span>
                   <span className="text-green-400"> TYPESCRIPT</span>
-                </div>
-                <div>
-                  <span className="text-magenta-400">ANALYTICS:</span>
-                  <span className="text-green-400"> VERCEL_ANALYTICS</span>
                 </div>
                 <div>
                   <span className="text-magenta-400">HOSTING:</span>
@@ -96,8 +88,8 @@ export default function TfkWebsiteProjectPage() {
               {[1, 2, 3].map((n) => (
                 <div key={n} className="relative aspect-video border-2 border-dotted border-yellow-400 overflow-hidden">
                   <Image
-                    src={`/screenshots/tfk-website/screenshot-${n}.png`}
-                    alt={`Hunting dog portal screenshot ${n}`}
+                    src={`/screenshots/it-hjelperen/screenshot-${n}.png`}
+                    alt={`IT-Hjelperen website screenshot ${n}`}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className="object-cover"
@@ -111,11 +103,10 @@ export default function TfkWebsiteProjectPage() {
           <div className="border-4 border-double border-magenta-500 p-6 bg-black">
             <h3 className="text-xl font-bold text-magenta-400 mb-4">&gt; PROJECT.NOTES</h3>
             <div className="space-y-2 text-sm text-green-400">
-              <p>:: CONTENT-DRIVEN_WEBSITE_FOR_A_HUNTING_DOG_CLUB</p>
-              <p>:: EVENTS_&_NEWS_MANAGED_ENTIRELY_THROUGH_SANITY_STUDIO</p>
-              <p>:: HUNT_TRIAL_RESULTS_ORGANIZED_BY_CATEGORY</p>
-              <p>:: CLUBHOUSE_BOOKING_INFO_WITH_DOWNLOADABLE_CONTRACT</p>
-              <p>:: BUILT_FOR_NON-TECHNICAL_CLUB_VOLUNTEERS_TO_MAINTAIN</p>
+              <p>:: MARKETING_SITE_FOR_A_LOCAL_IT_SUPPORT_&_PC-BUILDING_BUSINESS</p>
+              <p>:: SERVICES_PRICING_ABOUT_&_CONTACT_PAGES</p>
+              <p>:: LEAD_CAPTURE_VIA_CONTACT_FORM</p>
+              <p>:: BUILT_FOR_FAST_LOAD_&_STRONG_LOCAL_SEO</p>
             </div>
           </div>
 
@@ -135,7 +126,7 @@ export default function TfkWebsiteProjectPage() {
               </span>
             </a>
             <p className="text-xs text-green-400 mt-6">
-              :: FULL_WORKING_SITE_WITH_LIVE_CMS_CONTENT ::
+              :: FULL_WORKING_SITE ::
             </p>
             <p className="text-xs text-magenta-400 mt-2">
               :: PORTFOLIO_VERSION_-_ANONYMIZED_FOR_DEMONSTRATION ::
