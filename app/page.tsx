@@ -42,6 +42,24 @@ export default function Home() {
                 &gt;&gt;&gt;
               </div>
             </SubdomainLink>
+
+            <a
+              href="https://github.com/Kyo0x/srng-project"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group block border-4 border-double border-cyan-500 p-6 bg-black hover:bg-cyan-950 hover:border-yellow-400 transition-colors"
+            >
+              <div className="mb-4">
+                <span className="text-4xl text-yellow-400">[&gt;]</span>
+              </div>
+              <h3 className="text-xl font-bold text-cyan-400 mb-2">&gt; GITHUB</h3>
+              <p className="text-sm text-green-400">
+                :: VIEW_SOURCE_CODE_ON_GITHUB ::
+              </p>
+              <div className="mt-4 text-magenta-400">
+                &gt;&gt;&gt;
+              </div>
+            </a>
           </div>
         </div>
       </div>

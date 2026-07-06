@@ -54,7 +54,7 @@ export default function ProjectsPage() {
 
             {/* Hunting Dog Website */}
             <a
-              href="/tfk-website"
+              href="/hunting-website"
               className="group block border-4 border-double border-cyan-500 p-6 bg-black hover:bg-cyan-950 hover:border-yellow-400 transition-colors"
             >
               <div className="mb-4">

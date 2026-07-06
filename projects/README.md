@@ -20,7 +20,7 @@ Anonymized campervan rental booking platform
   - Automated reminders
   
 
-### tfk-website/
+### hunting-website/
 Anonymized hunting dog club website ("Hunting Dog Portal")
 
 - **Purpose**: Portfolio demonstration of a content-driven club/community site

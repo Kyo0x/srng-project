@@ -66,23 +66,23 @@ We've created dummy versions of key pages that work without database connections
 
 See `projects/vehicle-rental-project/DEMO_PAGES.md` for details.
 
-### TFK Hunting Club Demo
+### Hunting Club Demo
 
-Content-driven website for a hunting dog club (events, news, hunt trials, clubhouse rental), built on Next.js + Sanity CMS, located in `/projects/tfk-website/`.
+Content-driven website for a hunting dog club (events, news, hunt trials, clubhouse rental), built on Next.js + Sanity CMS, located in `/projects/hunting-website/`.
 
 **Quick Start:**
 ```bash
 # Run demo on port 3002
-./start-tfk-demo.sh
+./start-dog-demo.sh
 
 # Or manually
-cd projects/tfk-website
+cd projects/hunting-website
 cp .env.example .env.local  # add your Sanity project id/dataset
 npm install
 npm run dev -- -p 3002
 ```
 
-Showcase page: `projects.srng.no/tfk-website` (linked from the "HUNTING.DOG.PORTAL" card). Live demo target: `hunting-dog-portal.srng.no` — see `projects/tfk-website/DEPLOYMENT.md` for deploying it there.
+Showcase page: `projects.srng.no/hunting-website` (linked from the "HUNTING.DOG.PORTAL" card). Live demo target: `hunting-dog-portal.srng.no` — see `projects/hunting-website/DEPLOYMENT.md` for deploying it there.
 
 ### IT-Hjelperen Demo
 

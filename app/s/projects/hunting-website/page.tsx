@@ -96,7 +96,7 @@ export default function TfkWebsiteProjectPage() {
               {[1, 2, 3].map((n) => (
                 <div key={n} className="relative aspect-video border-2 border-dotted border-yellow-400 overflow-hidden">
                   <Image
-                    src={`/screenshots/tfk-website/screenshot-${n}.png`}
+                    src={`/screenshots/hunting-website/screenshot-${n}.png`}
                     alt={`Hunting dog portal screenshot ${n}`}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
