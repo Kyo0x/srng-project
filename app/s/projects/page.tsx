@@ -93,6 +93,27 @@ export default function ProjectsPage() {
                 &gt;&gt;&gt;
               </div>
             </a>
+
+            {/* Elkotek IDV */}
+            <a
+              href="/elkotek-idv"
+              className="group block border-4 border-double border-cyan-500 p-6 bg-black hover:bg-cyan-950 hover:border-yellow-400 transition-colors"
+            >
+              <div className="mb-4">
+                <span className="text-4xl text-cyan-400">[E]</span>
+              </div>
+              <h3 className="text-xl font-bold text-cyan-400 mb-2">&gt; ELKOTEK.IDV</h3>
+              <p className="text-sm text-green-400 mb-3">
+                :: JOB_DISPATCH_PLATFORM_FOR_SERVICE_PROVIDERS ::
+              </p>
+              <div className="flex gap-2 text-xs">
+                <span className="border border-dotted border-magenta-400 px-2 py-1 text-magenta-400">REACT</span>
+                <span className="border border-dotted border-magenta-400 px-2 py-1 text-magenta-400">MICROSERVICES</span>
+              </div>
+              <div className="mt-4 text-yellow-400">
+                &gt;&gt;&gt;
+              </div>
+            </a>
           </div>
         </div>
       </div>
