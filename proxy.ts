@@ -36,8 +36,18 @@ export function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
+  const internalPrefix = `/s/${normalizedHost}`;
+
+  // Next.js generates hrefs for file-based routes (icon, opengraph-image, etc.)
+  // using their actual internal path. If a request already targets that
+  // internal path directly, don't rewrite it again or it'll be double-prefixed
+  // (e.g. /s/projects/icon -> /s/projects/s/projects/icon) and 404/miss.
+  if (pathname === internalPrefix || pathname.startsWith(`${internalPrefix}/`)) {
+    return NextResponse.next();
+  }
+
   const rewrittenUrl = request.nextUrl.clone();
-  rewrittenUrl.pathname = `/s/${normalizedHost}${pathname}`;
+  rewrittenUrl.pathname = `${internalPrefix}${pathname}`;
 
   return NextResponse.rewrite(rewrittenUrl);
 }

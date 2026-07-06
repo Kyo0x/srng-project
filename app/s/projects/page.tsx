@@ -104,7 +104,7 @@ export default function ProjectsPage() {
               </div>
               <h3 className="text-xl font-bold text-cyan-400 mb-2">&gt; ELKOTEK.IDV</h3>
               <p className="text-sm text-green-400 mb-3">
-                :: JOB_DISPATCH_PLATFORM_FOR_SERVICE_PROVIDERS ::
+                :: AUTOMATED_JOB_DISPATCH ::
               </p>
               <div className="flex gap-2 text-xs">
                 <span className="border border-dotted border-magenta-400 px-2 py-1 text-magenta-400">REACT</span>
