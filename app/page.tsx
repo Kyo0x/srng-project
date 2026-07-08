@@ -60,6 +60,22 @@ export default function Home() {
                 &gt;&gt;&gt;
               </div>
             </a>
+
+            <a
+              href="/plex"
+              className="group block border-4 border-double border-cyan-500 p-6 bg-black hover:bg-cyan-950 hover:border-yellow-400 transition-colors"
+            >
+              <div className="mb-4">
+                <span className="text-4xl text-yellow-400">[P]</span>
+              </div>
+              <h3 className="text-xl font-bold text-cyan-400 mb-2">&gt; PLEX</h3>
+              <p className="text-sm text-green-400">
+                :: MEDIA_REQUEST_PORTALS ::
+              </p>
+              <div className="mt-4 text-magenta-400">
+                &gt;&gt;&gt;
+              </div>
+            </a>
           </div>
         </div>
       </div>
